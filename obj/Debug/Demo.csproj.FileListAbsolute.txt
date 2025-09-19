@@ -51,3 +51,5 @@ C:\Users\HP\source\repos\Demo\Demo\bin\Debug\System.ValueTuple.xml
 C:\Users\HP\source\repos\Demo\Demo\obj\Debug\Demo.csproj.Up2Date
 C:\Users\HP\source\repos\Demo\Demo\obj\Debug\SupplierWindow.g.cs
 C:\Users\HP\source\repos\Demo\Demo\obj\Debug\SupplierWindow.baml
+C:\Users\HP\source\repos\Demo\Demo\obj\Debug\Products_Suppliers.g.cs
+C:\Users\HP\source\repos\Demo\Demo\obj\Debug\Products_Suppliers.baml

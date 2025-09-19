@@ -6,10 +6,10 @@
         xmlns:local="clr-namespace:Demo"
         mc:Ignorable="d"
         FontFamily="Comic Sans MS"
-       Title="ИС &quot;МММ&quot; : Товары-Поставщиков" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+       Title="ИС &quot;МММ&quot; : Товары поставщиков под заказ" Height="450" Width="800" MinHeight="400" MinWidth="700" WindowStartupLocation="CenterScreen">
     <Grid>
         <StackPanel Height="70" Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Center" Width="800">
-            <TextBlock Text="Товары-Поставщиков"  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" FontFamily="Comic Sans MS" Foreground="#FF498C51"></TextBlock>
+            <TextBlock Text="Товары поставщиков под заказ"  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" FontFamily="Comic Sans MS" Foreground="#FF498C51"></TextBlock>
             <StackPanel Orientation="Horizontal">
                 <Grid/>
             </StackPanel>
@@ -26,34 +26,31 @@
                 <ColumnDefinition Width="400*"/>
                 <ColumnDefinition Width="400*"/>
             </Grid.ColumnDefinitions>
-            <DataGrid Grid.Column="0" IsReadOnly="True" Name="DataSuppliers" AutoGenerateColumns="False" MouseDoubleClick="DataProducts_MouseDoubleClick" SelectionChanged="DataProducts_SelectionChanged" Cursor="AppStarting" RowBackground="White">
+            <DataGrid Grid.Column="0" IsReadOnly="True" Name="DataProductsSuppliers" AutoGenerateColumns="False" MouseDoubleClick="DataProductsSuppliers_MouseDoubleClick" SelectionChanged="DataProductsSuppliers_SelectionChanged" Cursor="AppStarting" RowBackground="White">
                 <DataGrid.CacheMode>
                     <BitmapCache/>
                 </DataGrid.CacheMode>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Название компании" Binding="{Binding NAME}" Foreground="#FF498C51"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Номер телефона" Binding="{Binding PHONE}" Foreground="#FF498C51"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Электронная почта" Binding="{Binding EMAIL}" Foreground="#FF498C51"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Город" Binding="{Binding CITY}" Foreground="#FF498C51"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Имя поставщика" Binding="{Binding SUPPLIER_NAME}" Foreground="#FF498C51"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Товар" Binding="{Binding PRODUCT_NAME}" Foreground="#FF498C51"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Цена доставки" Binding="{Binding DELIVERY_PRICE}" Foreground="#FF498C51"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
-            <GroupBox x:Name="GroupBoxAddProducts" Grid.Column ="1" Header="Добавление/редактирование поставщика" Foreground="#FF498C51">
+            <GroupBox x:Name="GroupBoxAddProducts" Grid.Column ="1" Header="Добавление/редактирование товара поставщика" Foreground="#FF498C51">
                 <Grid>
-                    <StackPanel  x:Name="AddSupplier" Margin="0,39,10,10" >
+                    <StackPanel  x:Name="AddProductSupplier" Margin="0,39,10,10" >
                         <Button Height="20" Width="50" Content="Назад" HorizontalAlignment="Left" Click="Button_Click_7" Background="#FF49E383"/>
-                        <Button Height="20" Width="200" Content="Добавить" Margin="0,20,0,0" Click="Button_Click_5" Background="#FF76E383"/>
                         <ScrollViewer VerticalScrollBarVisibility="Auto" Height="200">
                             <StackPanel>
-                                <TextBlock Text="Название компании" Margin="0,20,0,0"/>
-                                <TextBox x:Name="NameSuppliers" Height="25" Margin="0,10,0,0"/>
-                                <TextBlock Text="Номер телефона" Margin="0,10,0,0"/>
-                                <TextBox x:Name="PhoneNumber" Margin="0,10,0,0"/>
-                                <TextBlock Text="Електронная почта" Margin="0,20,0,0"/>
-                                <TextBox x:Name="Email" Height="25" Margin="0,10,0,0"/>
-                                <TextBlock Text="Город" Margin="0,10,0,0"/>
-                                <ComboBox x:Name="ComboBoxCities" Margin="0,10,0,0"/>
+                                <TextBlock Text="Поставщик" Margin="0,20,0,0"/>
+                                <ComboBox x:Name="SupplierProducts" Height="25" Margin="0,10,0,0"/>
+                                <TextBlock Text="Товар" Margin="0,10,0,0"/>
+                                <ComboBox x:Name="ProductProducts" Margin="0,10,0,0"/>
+                                <TextBlock Text="Цена доставки" Margin="0,20,0,0"/>
+                                <TextBox x:Name="DeliveryPriceProducts" Height="25" Margin="0,10,0,0"/>
                             </StackPanel>
                         </ScrollViewer>
+                        <Button Height="20" Width="200" Content="Добавить" Margin="0,20,0,0" Click="Button_Click_5" Background="#FF76E383"/>
                     </StackPanel>
 
                     <StackPanel x:Name="EditDeleteStackPanel" Height="240" VerticalAlignment="Center" HorizontalAlignment="Center" Width="388" d:IsHidden="True" >
@@ -65,28 +62,33 @@
                     </StackPanel>
 
                     <StackPanel  x:Name="AddStackPanel" Height="200" d:IsHidden="True">
-                        <Button Content="Добавить товар" Click="Button_Click_6" Background="#FF76E383"/>
-
+                        <Button Content="Добавить товар поставщика" Click="Button_Click_6" Background="#FF76E383"/>
                     </StackPanel>
 
-
-                    <StackPanel  x:Name="EditStackPanel" Margin="0,39,0,28" >
+                    <StackPanel  x:Name="EditStackPanel" Margin="0,39,0,28" d:IsHidden="True" >
+                        <Button Height="20" Width="50" Content="Назад" HorizontalAlignment="Left" Click="Button_Click_1" Background="#FF76E383"/>
                         <ScrollViewer VerticalScrollBarVisibility="Auto" Height="200">
                             <StackPanel>
-                                <Button Height="20" Width="50" Content="Назад" HorizontalAlignment="Left" Click="Button_Click_1" Background="#FF76E383"/>
-                                <TextBlock Text="Название компании" Margin="0,20,0,0"/>
-                                <ComboBox x:Name="EditNameProduct" Margin="0,10,0,0" Background="White" BorderBrush="White">
-
-                                </ComboBox>
-                                <TextBlock Text="Номер телефона" Margin="0,10,0,0"/>
-                                <TextBox x:Name="EditSuppliersProducts"   Margin="0,10,0,0" />
-                                <TextBlock Text="Электронная почта" Margin="0,10,0,0"/>
-                                <TextBox  x:Name="EditPriceProducts"/>
-                                <TextBlock Text="Город" Margin="0,10,0,0"/>
-                                <ComboBox x:Name="ComboBoxCities2"/>
+                                <TextBlock Text="Поставщик" Margin="0,20,0,0"/>
+                                <ComboBox x:Name="EditSupplierProduct" Margin="0,10,0,0" Background="White" BorderBrush="White"/>
+                                <TextBlock Text="Товар" Margin="0,10,0,0"/>
+                                <ComboBox x:Name="EditProductProduct"   Margin="0,10,0,0" />
+                                <TextBlock Text="Цена доставки" Margin="0,10,0,0"/>
+                                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                                    <TextBox Width="300" Height="25" x:Name="EditDeliveryPrice"/>
+                                    <ScrollBar Height="25" ValueChanged="ScrollBar_ValueChanged" Minimum="-10000" Maximum="10000" SmallChange="1" RenderTransformOrigin="0.5,0.5">
+                                        <ScrollBar.RenderTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform/>
+                                                <SkewTransform/>
+                                                <RotateTransform Angle="180"/>
+                                                <TranslateTransform/>
+                                            </TransformGroup>
+                                        </ScrollBar.RenderTransform>
+                                    </ScrollBar>
+                                </StackPanel>
                             </StackPanel>
                         </ScrollViewer>
-
                         <Button Height="20" Width="200" Content="Сохранить" Margin="0,20,0,0" Click="Button_Click_4" Background="#FF76E383"></Button>
                     </StackPanel>
                 </Grid>

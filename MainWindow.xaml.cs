@@ -38,5 +38,12 @@ namespace Demo
             supplierWindow.Show();
             this.Close();
         }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            Products_Suppliers products_Suppliers = new Products_Suppliers();
+            products_Suppliers.Show();
+            this.Close();
+        }
     }
 }

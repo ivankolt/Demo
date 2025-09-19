@@ -314,7 +314,9 @@ namespace Demo
 
         private void Button_Click_8(object sender, RoutedEventArgs e)
         {
-
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
+            this.Close();
         }
         public void SetData()
         {
