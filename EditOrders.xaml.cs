@@ -74,7 +74,7 @@ namespace Demo
                         statusList.Add(readerStatuses.GetString(0));
                     }
                 }
-
+                 
                 string sql =
     @"SELECT o.id, o.order_date, p.last_name || ' ' || p.first_name AS fio, o.total_amount, o.order_status, o.prepayment_percent
       FROM orders o
