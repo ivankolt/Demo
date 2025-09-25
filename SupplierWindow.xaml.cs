@@ -67,6 +67,8 @@ namespace Demo
             AddSupplier.Visibility = Visibility.Collapsed;
             GroupBoxAddProducts.Visibility = Visibility.Collapsed;
             CloseButton.Visibility = Visibility.Collapsed;
+            ButtonSeatch.Visibility = Visibility.Collapsed;
+            ButtonExit.Visibility = Visibility.Collapsed;
 
             DataSuppliers.Width = 800;
             Grid.SetColumnSpan(DataSuppliers, 2);
@@ -383,5 +385,82 @@ namespace Demo
             EditDeleteStackPanel.Visibility = Visibility.Collapsed;
             EditStackPanel.Visibility = Visibility.Collapsed;
         }
+
+        private void EditNameProduct_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            LoadDataSupplier();
+        }
+        public void SearchDataProducts(string word)
+        {
+            word = word.ToLower();
+            supplier.Clear();
+
+            var conn = new NpgsqlConnection(Products_is_true.Connecting);
+            conn.Open();
+            using (var cmd = new NpgsqlCommand(
+                "SELECT suppliers.id, suppliers.company_name, cities.name, suppliers.email, " +
+                "suppliers.phone_number\r\n\tFROM public.suppliers inner join" +
+                " public.cities ON cities.id = suppliers.city_id where (LOWER(suppliers.company_name) = @word) or (LOWER(cities.name) = @word) ", conn))
+            {
+                cmd.Parameters.AddWithValue("word", word);
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        supplier.Add(new Supplier()
+                        {
+                            ID = reader.GetInt32(0),
+                            NAME = reader.GetString(1),
+                            PHONE = reader.GetString(4),
+                            EMAIL = reader.GetString(3),
+                            CITY = reader.GetString(2)
+                        });
+                    }
+                    reader.Close();
+                }
+            }
+        }
+
+        private void ButtonSeatch_Click_1(object sender, RoutedEventArgs e)
+        {
+            ButtonExit.Visibility = Visibility.Visible;
+            Console.WriteLine("fsefwefefwefwef11");
+            SearchDataProducts(TextBoxSeatch.Text);
+            Console.WriteLine("fsefwefefwefwef");
+            ButtonSeatch.Visibility = Visibility.Collapsed;
+        }
+
+        private void ButtonExit_Click(object sender, RoutedEventArgs e)
+        {
+            ButtonExit.Visibility = Visibility.Collapsed;
+            UpdateCompany();
+            TextBoxSeatch.Text = string.Empty;
+        }
+
+        private void TextBoxSeatch_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (TextBoxSeatch.Text == string.Empty || TextBoxSeatch.Text == "Поиск")
+            {
+                TextBoxSeatch.Text = string.Empty;
+            }
+            ButtonSeatch.Visibility = Visibility.Visible;
+            ButtonExit.Visibility = Visibility.Collapsed;
+
+        }
+
+        private void TextBoxSeatch_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (TextBoxSeatch.Text == string.Empty)
+            {
+                TextBoxSeatch.Text = "Поиск";
+                ButtonExit.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                ButtonExit.Visibility = Visibility.Visible;
+            }
+
+        }
+
     }
 }

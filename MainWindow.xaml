@@ -5,12 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Demo"
         mc:Ignorable="d"
-        Title="ИС МММ : Главное окно" Height="450" Width="800" MinHeight="300" MinWidth="550" WindowStartupLocation="CenterScreen">
+        Title="ИС МММ - Главное окно" Height="450" Width="800" MinHeight="300" MinWidth="550" WindowStartupLocation="CenterScreen">
     <Grid>
-        <StackPanel Orientation="Vertical" Height="300" Width="500">
+        <Grid Name="GridNoti" Margin="0,0,0,217">
+            <StackPanel x:Name="ListNewOrders" Orientation="Vertical">
+                
+            </StackPanel>
+        </Grid>
+        <Grid>
+            <StackPanel Orientation="Vertical" Height="300" Width="500">
             <Button Content="Товары в наличии" Height="50"  Background="#FF76E383" FontFamily="Comic Sans MS" Click="Button_Click"></Button>
             <Button Content="Поставщики товаров" Height="50" Background="#FF76E383" FontFamily="Comic Sans MS" Click="Button_Click_1"></Button>
-            <Button Content="Товары, которые есть у поставщика под заказ" FontFamily="Comic Sans MS" Background="#FF76E383" Height="50" Click="Button_Click_2"></Button>
+            <Button Content="Товары под заказ" FontFamily="Comic Sans MS" Background="#FF76E383" Height="50" Click="Button_Click_2"></Button>
+            <Button Content="Создание заказа" FontFamily="Comic Sans MS" Background="#FF76E383" Height="50" Click="Button_Click_3" ></Button>
+            <Button Content="Оформлние счёта" FontFamily="Comic Sans MS" Background="#FF76E383" Height="50" Click="Button_Click_4" />
+            <Button Content="Упралвение заказами" FontFamily="Comic Sans MS" Background="#FF76E383" Height="50" Click="Button_Click_5" />
         </StackPanel>
+        </Grid>
     </Grid>
 </Window>

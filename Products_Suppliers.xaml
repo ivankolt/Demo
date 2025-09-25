@@ -6,12 +6,25 @@
         xmlns:local="clr-namespace:Demo"
         mc:Ignorable="d"
         FontFamily="Comic Sans MS"
-       Title="ИС &quot;МММ&quot; : Товары поставщиков под заказ" Height="450" Width="800" MinHeight="400" MinWidth="700" WindowStartupLocation="CenterScreen">
+       Title="ИС &quot;МММ&quot; - Товары поставщиков" Height="450" Width="800" MinHeight="400" MinWidth="700" WindowStartupLocation="CenterScreen">
     <Grid>
         <StackPanel Height="70" Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Center" Width="800">
-            <TextBlock Text="Товары поставщиков под заказ"  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" FontFamily="Comic Sans MS" Foreground="#FF498C51"></TextBlock>
+            <TextBlock Text="Товары поставщиков"  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" FontFamily="Comic Sans MS" Foreground="#FF498C51"></TextBlock>
             <StackPanel Orientation="Horizontal">
-                <Grid/>
+
+                <TextBox x:Name="TextBoxSeatch" Height="25" Width="596" Margin="20,10,0,0" Text="Поиск" FontSize="15" AutomationProperties.HelpText="Нечеткий поиск" GotFocus="TextBoxSeatch_GotFocus" LostFocus="TextBoxSeatch_LostFocus" />
+                <Grid>
+                    <Button Name="ButtonSeatch" Width="35" Height="33" Foreground="#FFF11515" Click="ButtonSeatch_Click_1" >
+                        <Button.Background>
+                            <ImageBrush ImageSource="/icons8-поиск-50.png"/>
+                        </Button.Background>
+                    </Button>
+                    <Button Name="ButtonExit" Width="35" Height="33" Foreground="#FFF11515" Click="ButtonExit_Click" >
+                        <Button.Background>
+                            <ImageBrush ImageSource="/icons8-крестик-78.png"/>
+                        </Button.Background>
+                    </Button>
+                </Grid>
             </StackPanel>
         </StackPanel>
         <StackPanel Height="70" Width="100" VerticalAlignment="Top" Orientation="Vertical" HorizontalAlignment="Right" Margin="0,5,0,5" >
@@ -87,9 +100,10 @@
                                         </ScrollBar.RenderTransform>
                                     </ScrollBar>
                                 </StackPanel>
+                                <Button Height="20" Width="200" Content="Сохранить" Margin="0,20,0,0" Click="Button_Click_4" Background="#FF76E383"></Button>
                             </StackPanel>
                         </ScrollViewer>
-                        <Button Height="20" Width="200" Content="Сохранить" Margin="0,20,0,0" Click="Button_Click_4" Background="#FF76E383"></Button>
+                       
                     </StackPanel>
                 </Grid>
             </GroupBox>

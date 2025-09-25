@@ -52,6 +52,8 @@ namespace Demo
             AddProductSupplier.Visibility = Visibility.Collapsed;
             GroupBoxAddProducts.Visibility = Visibility.Collapsed;
             CloseButton.Visibility = Visibility.Collapsed;
+            ButtonSeatch.Visibility = Visibility.Collapsed;
+            ButtonExit.Visibility = Visibility.Collapsed;
             DataProductsSuppliers.Width = 800;
             Grid.SetColumnSpan(DataProductsSuppliers, 2);
             LoadSuppliersData();
@@ -465,32 +467,43 @@ namespace Demo
             Grid.SetColumnSpan(DataProductsSuppliers, 1);
         }
 
-    
-
-   
-        public int LevenshteinDistance(string a, string b)
+        private void TextBoxSeatch_GotFocus(object sender, RoutedEventArgs e)
         {
-            int[,] d = new int[a.Length + 1, b.Length + 1];
-            for (int i = 0; i <= a.Length; i++)
-                d[i, 0] = i;
-            for (int j = 0; j <= b.Length; j++)
-                d[0, j] = j;
-            for (int i = 1; i <= a.Length; i++)
+            if (TextBoxSeatch.Text == string.Empty || TextBoxSeatch.Text == "Поиск")
             {
-                for (int j = 1; j <= b.Length; j++)
-                {
-                    int cost = a[i - 1] == b[j - 1] ? 0 : 1;
-                    d[i, j] = Math.Min(
-                        Math.Min(d[i - 1, j] + 1, d[i, j - 1] + 1),
-                        d[i - 1, j - 1] + cost
-                    );
-                }
+                TextBoxSeatch.Text = string.Empty;
             }
-            return d[a.Length, b.Length];
+            ButtonSeatch.Visibility = Visibility.Visible;
+            ButtonExit.Visibility = Visibility.Collapsed;
+
         }
 
-        public void SearchDataProductSuppliers(string word)
+        private void TextBoxSeatch_LostFocus(object sender, RoutedEventArgs e)
         {
+            if (TextBoxSeatch.Text == string.Empty)
+            {
+                TextBoxSeatch.Text = "Поиск";
+                ButtonExit.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                ButtonExit.Visibility = Visibility.Visible;
+            }
+
+
+        }
+
+  
+
+        private void ButtonExit_Click(object sender, RoutedEventArgs e)
+        {
+            ButtonExit.Visibility = Visibility.Collapsed;
+            UpdateDataProductSuppliers();
+            TextBoxSeatch.Text = string.Empty;
+        }
+        public void SearchDataProducts(string word)
+        {
+            word = word.ToLower();
             productSuppliers.Clear();
 
             var conn = new NpgsqlConnection(Connecting);
@@ -500,35 +513,36 @@ namespace Demo
                 "s.company_name, p.products_name, ps.delivery_price " +
                 "FROM public.product_suppliers ps " +
                 "LEFT JOIN suppliers s ON s.id = ps.supplier_id " +
-                "LEFT JOIN products p ON p.id = ps.product_id " +
-                "WHERE abs(LENGTH(s.company_name) - LENGTH(@word)) < 4 OR abs(LENGTH(p.products_name) - LENGTH(@word)) < 4", conn))
+                "LEFT JOIN products p ON p.id = ps.product_id where (LOWER(p.products_name) = @word) or (LOWER(s.company_name) = @word)", conn))
             {
                 cmd.Parameters.AddWithValue("word", word);
                 using (var reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        string supplierName = reader.GetString(2);
-                        string productName = reader.GetString(3);
-
-                        if (LevenshteinDistance(word, supplierName) <= 3 || LevenshteinDistance(word, productName) <= 3)
+                        productSuppliers.Add(new ProductSupplier()
                         {
-                            productSuppliers.Add(new ProductSupplier()
-                            {
-                                PRODUCT_ID = reader.GetInt32(0),
-                                SUPPLIER_ID = reader.GetInt32(1),
-                                SUPPLIER_NAME = supplierName,
-                                PRODUCT_NAME = productName,
-                                DELIVERY_PRICE = reader.GetDecimal(4)
-                            });
-                        }
+                            PRODUCT_ID = reader.GetInt32(0),
+                            SUPPLIER_ID = reader.GetInt32(1),
+                            SUPPLIER_NAME = reader.GetString(2),
+                            PRODUCT_NAME = reader.GetString(3),
+                            DELIVERY_PRICE = reader.GetDecimal(4)
+                        });
                     }
                     reader.Close();
                 }
             }
         }
 
-      
+        private void ButtonSeatch_Click_1(object sender, RoutedEventArgs e)
+        {
+
+            ButtonExit.Visibility = Visibility.Visible;
+            Console.WriteLine("fsefwefefwefwef11");
+            SearchDataProducts(TextBoxSeatch.Text);
+            Console.WriteLine("fsefwefefwefwef");
+            ButtonSeatch.Visibility = Visibility.Collapsed;
+        }
 
     }
 }

@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\HP\source\repos\Demo\Demo\App.xaml
-4821570135
+10-349189021
 
-9252697965
-311805796762
-MainWindow.xaml;Products_is_true.xaml;Products_Suppliers.xaml;SupplierWindow.xaml;
+16-1518398220
+33-1560538754
+Authentication.xaml;Create_orders.xaml;EditOrders.xaml;MainWindow.xaml;MainWindow_Users.xaml;NewOrdersWindow.xaml;New_payments.xaml;Products_is_true.xaml;Products_Suppliers.xaml;SupplierWindow.xaml;
 
-True
+False
 

@@ -523,7 +523,7 @@ namespace Demo
             {
                 ButtonExit.Visibility = Visibility.Visible;
             }
-            ButtonSeatch.Visibility = Visibility.Collapsed;
+            
            
         }
         public int LevenshteinDistance(string a, string b)
@@ -549,8 +549,10 @@ namespace Demo
 
         public void SearchDataProducts(string word)
         {
+            
             products.Clear();
             string word2 = String.Empty;
+            
 
             var conn = new NpgsqlConnection(Connecting);
             conn.Open();
@@ -597,9 +599,11 @@ namespace Demo
 
         private void ButtonSeatch_Click_1(object sender, RoutedEventArgs e)
         {
+           
             ButtonExit.Visibility = Visibility.Visible;
-
+            Console.WriteLine("fsefwefefwefwef11");
             SearchDataProducts(TextBoxSeatch.Text);
+            Console.WriteLine("fsefwefefwefwef");
             ButtonSeatch.Visibility = Visibility.Collapsed;
         }
     }
